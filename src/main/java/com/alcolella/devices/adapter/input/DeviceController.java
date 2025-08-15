@@ -2,9 +2,12 @@ package com.alcolella.devices.adapter.input;
 
 import com.alcolella.devices.adapter.input.dto.DeviceRequestDTO;
 import com.alcolella.devices.domain.enums.StateEnum;
+import com.alcolella.devices.services.DeviceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,12 @@ import java.util.List;
 @Tag(name = "Device Controller", description = "Controller for managing devices")
 @RequestMapping("/devices")
 public class DeviceController {
+
+    private final DeviceService deviceService;
+
+    public DeviceController(DeviceService deviceService) {
+        this.deviceService = deviceService;
+    }
 
     @Operation(summary = "Get Device by ID", description = "Retrieve a device by its ID")
     @GetMapping("/{id}")
@@ -55,10 +64,34 @@ public class DeviceController {
 
     @Operation(summary = "Create Device", description = "Create a new device")
     @PostMapping("/create")
-    public ResponseEntity<Object> createDevice(
+    public ResponseEntity<Object> createDevice(@Valid
             @Parameter(description = "Device details to create", required = true)
-            @RequestBody DeviceRequestDTO deviceRequest) {
+            @RequestBody DeviceRequestDTO deviceRequestDTO) {
 
+
+        var createdDevice = deviceService.createDevice(
+                deviceRequestDTO.getName(),
+                deviceRequestDTO.getBrand(),
+                deviceRequestDTO.getState()
+        ) ;
+        return new ResponseEntity<>(createdDevice, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    @Operation(summary = "Update Device", description = "Update an existing device by ID")
+    public ResponseEntity<Object> updateDevice(
+            @Parameter(description = "ID of the device to update", required = true)
+            @PathVariable Long id,
+            @Parameter(description = "Updated device details", required = true)
+            @RequestBody DeviceRequestDTO deviceRequest) {
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Delete Device", description = "Delete a device by ID")
+    public ResponseEntity<Object> deleteDevice(
+            @Parameter(description = "ID of the device to delete", required = true)
+            @PathVariable Long id) {
         return null;
     }
 

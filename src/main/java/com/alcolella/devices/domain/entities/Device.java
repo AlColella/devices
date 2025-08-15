@@ -2,11 +2,15 @@ package com.alcolella.devices.domain.entities;
 
 import com.alcolella.devices.domain.enums.StateEnum;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_device")
+@Data
+@Builder
 public class Device {
 
     @Id
