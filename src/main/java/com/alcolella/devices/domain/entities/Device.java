@@ -11,7 +11,11 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tb_device")
+@Table(name = "tb_device",
+        indexes = {
+                @Index(name = "idx_device_brand", columnList = "brand"),
+                @Index(name = "idx_device_state", columnList = "state")
+        })
 @Data
 @Builder
 @NoArgsConstructor

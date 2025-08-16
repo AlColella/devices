@@ -3,22 +3,20 @@ package com.alcolella.devices.adapter.input;
 import com.alcolella.devices.adapter.input.dto.DeviceRequestDTO;
 import com.alcolella.devices.adapter.input.dto.DeviceResponseDTO;
 import com.alcolella.devices.domain.dto.DeviceDTO;
-import com.alcolella.devices.domain.entities.Device;
 import com.alcolella.devices.domain.enums.StateEnum;
 import com.alcolella.devices.mappers.DeviceMapper;
 import com.alcolella.devices.services.DeviceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Tag(name = "Device Controller", description = "Controller for managing devices")
@@ -47,11 +45,13 @@ public class DeviceController {
 
     @Operation(summary = "Get All Devices", description = "Retrieve all devices")
     @GetMapping("/getAllDevices")
-    public RequestEntity<List<Object>> getAllDevices(
-            @Parameter(description = "ID of the device to retrieve", required = true)
-            @PathVariable Long id
-    ) {
-        return null;
+    public ResponseEntity<List<DeviceResponseDTO>> getAllDevices()
+    {
+        var deviceList = deviceService.getAllDevices()
+                .stream()
+                .map(deviceMapper::toDeviceResponseDTO)
+                .toList();
+        return ResponseEntity.ok(deviceList);
     }
 
     @Operation(summary = "Get Devices by Brand", description = "Retrieve devices by their brand")

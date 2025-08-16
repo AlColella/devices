@@ -6,6 +6,7 @@ import com.alcolella.devices.repositories.DeviceRepository;
 import com.alcolella.devices.services.DeviceService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,6 +26,11 @@ public class DeviceServiceImpl implements DeviceService {
     @Override
     public Optional<Device> getDeviceById(Long id) {
         return deviceRepository.findById(id);
+    }
+
+    @Override
+    public List<Device> getAllDevices() {
+        return deviceRepository.findAll();
     }
 
     private Device buildDevice(String name, String brand, StateEnum state) {
