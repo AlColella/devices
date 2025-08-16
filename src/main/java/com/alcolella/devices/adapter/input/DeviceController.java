@@ -1,12 +1,18 @@
 package com.alcolella.devices.adapter.input;
 
 import com.alcolella.devices.adapter.input.dto.DeviceRequestDTO;
+import com.alcolella.devices.adapter.input.dto.DeviceResponseDTO;
+import com.alcolella.devices.domain.dto.DeviceDTO;
+import com.alcolella.devices.domain.entities.Device;
 import com.alcolella.devices.domain.enums.StateEnum;
+import com.alcolella.devices.mappers.DeviceMapper;
 import com.alcolella.devices.services.DeviceService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -20,18 +26,23 @@ import java.util.List;
 public class DeviceController {
 
     private final DeviceService deviceService;
+    private final DeviceMapper deviceMapper;
 
-    public DeviceController(DeviceService deviceService) {
+    public DeviceController(DeviceService deviceService, DeviceMapper deviceMapper) {
         this.deviceService = deviceService;
+        this.deviceMapper = deviceMapper;
     }
 
     @Operation(summary = "Get Device by ID", description = "Retrieve a device by its ID")
     @GetMapping("/{id}")
-    public RequestEntity<Object> getDevice(
+    public ResponseEntity<DeviceResponseDTO> getDevice(
             @Parameter(description = "ID of the device to retrieve", required = true)
             @PathVariable Long id
     ) {
-        return null;
+        return deviceService.getDeviceById(id)
+                .map(deviceMapper::toDeviceResponseDTO)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Operation(summary = "Get All Devices", description = "Retrieve all devices")
@@ -64,7 +75,7 @@ public class DeviceController {
 
     @Operation(summary = "Create Device", description = "Create a new device")
     @PostMapping("/create")
-    public ResponseEntity<Object> createDevice(@Valid
+    public ResponseEntity<DeviceDTO> createDevice(@Valid
             @Parameter(description = "Device details to create", required = true)
             @RequestBody DeviceRequestDTO deviceRequestDTO) {
 
@@ -74,7 +85,8 @@ public class DeviceController {
                 deviceRequestDTO.getBrand(),
                 deviceRequestDTO.getState()
         ) ;
-        return new ResponseEntity<>(createdDevice, HttpStatus.CREATED);
+        var created = deviceMapper.toDeviceDTO(createdDevice);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

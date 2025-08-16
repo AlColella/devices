@@ -2,15 +2,20 @@ package com.alcolella.devices.domain.entities;
 
 import com.alcolella.devices.domain.enums.StateEnum;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tb_device")
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Device {
 
     @Id
@@ -28,12 +33,10 @@ public class Device {
     private StateEnum state;
 
     @Column(name = "creation_time", nullable = false, updatable = false)
-    private LocalDateTime creationTime;
+    private Instant creationTime;
 
     @PrePersist
     public void prePersist() {
-        this.creationTime = LocalDateTime.now();
+        this.creationTime =Instant.now();
     }
-
-
 }
