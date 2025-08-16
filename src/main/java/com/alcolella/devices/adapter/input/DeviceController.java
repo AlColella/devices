@@ -51,16 +51,26 @@ public class DeviceController {
                 .stream()
                 .map(deviceMapper::toDeviceResponseDTO)
                 .toList();
+        if (deviceList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok(deviceList);
     }
 
     @Operation(summary = "Get Devices by Brand", description = "Retrieve devices by their brand")
     @GetMapping("/getDevicesByBrand/{brand}")
-    public RequestEntity<List<Object>> getDevicesByBrand(
+    public ResponseEntity<List<DeviceResponseDTO>> getDevicesByBrand(
             @Parameter(description = "Brand of the devices to retrieve", required = true)
             @PathVariable String brand
     ) {
-        return null;
+        var deviceList = deviceService.getDevicesByBrand(brand)
+                .stream()
+                .map(deviceMapper::toDeviceResponseDTO)
+                .toList();
+        if (deviceList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(deviceList);
     }
 
     @Operation(summary = "Get Devices by State", description = "Retrieve devices by their state")

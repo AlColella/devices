@@ -33,6 +33,11 @@ public class DeviceServiceImpl implements DeviceService {
         return deviceRepository.findAll();
     }
 
+    @Override
+    public List<Device> getDevicesByBrand(String brand) {
+        return deviceRepository.findAllByBrand(brand);
+    }
+
     private Device buildDevice(String name, String brand, StateEnum state) {
         return Device.builder()
                 .name(name)
