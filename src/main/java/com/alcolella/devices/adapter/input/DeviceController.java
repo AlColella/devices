@@ -11,12 +11,10 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @Tag(name = "Device Controller", description = "Controller for managing devices")
@@ -121,7 +119,8 @@ public class DeviceController {
     public ResponseEntity<Object> deleteDevice(
             @Parameter(description = "ID of the device to delete", required = true)
             @PathVariable Long id) {
-        return null;
+        deviceService.deleteDevice(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

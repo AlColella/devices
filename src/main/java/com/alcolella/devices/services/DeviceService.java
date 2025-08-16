@@ -13,5 +13,6 @@ public interface DeviceService {
     List<Device> getAllDevices();
     List<Device> getDevicesByBrand(String brand);
     List<Device> getDevicesByState(StateEnum state);
+    void deleteDevice(Long id);
 
 }
