@@ -75,11 +75,18 @@ public class DeviceController {
 
     @Operation(summary = "Get Devices by State", description = "Retrieve devices by their state")
     @GetMapping("/getDevicesByState/{state}")
-    public RequestEntity<List<Object>> getDevicesByState(
+    public ResponseEntity<List<DeviceResponseDTO>> getDevicesByState(
             @Parameter(description = "Brand of the devices to retrieve", required = true)
             @PathVariable StateEnum state
     ) {
-        return null;
+        var deviceList = deviceService.getDevicesByState(state)
+                .stream()
+                .map(deviceMapper::toDeviceResponseDTO)
+                .toList();
+        if (deviceList.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(deviceList);
     }
 
 

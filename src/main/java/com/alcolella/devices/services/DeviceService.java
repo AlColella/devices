@@ -12,5 +12,6 @@ public interface DeviceService {
     Optional<Device> getDeviceById (Long id);
     List<Device> getAllDevices();
     List<Device> getDevicesByBrand(String brand);
+    List<Device> getDevicesByState(StateEnum state);
 
 }

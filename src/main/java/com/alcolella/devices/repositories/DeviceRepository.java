@@ -1,10 +1,12 @@
 package com.alcolella.devices.repositories;
 
 import com.alcolella.devices.domain.entities.Device;
+import com.alcolella.devices.domain.enums.StateEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 public interface DeviceRepository extends JpaRepository<Device, Long> {
     List<Device> findAllByBrand(String brand);
+    List<Device> findAllByState(StateEnum state);
 }
