@@ -14,5 +14,6 @@ public interface DeviceService {
     List<Device> getDevicesByBrand(String brand);
     List<Device> getDevicesByState(StateEnum state);
     void deleteDevice(Long id);
+    Device updateDevice(Long id, String name, String brand, StateEnum state);
 
 }

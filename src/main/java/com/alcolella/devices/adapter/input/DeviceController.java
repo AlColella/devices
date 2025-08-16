@@ -111,12 +111,13 @@ public class DeviceController {
             @PathVariable Long id,
             @Parameter(description = "Updated device details", required = true)
             @RequestBody DeviceRequestDTO deviceRequest) {
-        return null;
+        var updatedDevice = deviceService.updateDevice(id, deviceRequest.getName(), deviceRequest.getBrand(), deviceRequest.getState());
+        return ResponseEntity.ok(deviceMapper.toDeviceResponseDTO(updatedDevice));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete Device", description = "Delete a device by ID")
-    public ResponseEntity<Object> deleteDevice(
+    public ResponseEntity<Void> deleteDevice(
             @Parameter(description = "ID of the device to delete", required = true)
             @PathVariable Long id) {
         deviceService.deleteDevice(id);
