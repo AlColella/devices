@@ -39,13 +39,13 @@ Base URL: http://localhost:8080/devices
 
 | Method | Endpoint                                             | Description                       |
 | ------ |------------------------------------------------------|-----------------------------------|
-| POST   | `/devices`                                           | Create a new device               |
-| GET    | `/devices`                                           | Get all devices                   |
+| POST   | `/devices/create`                                    | Create a new device               |
+| GET    | `/devices/getAllDevices`                             | Get all devices                   |
 | GET    | `/devices/{id}`                                      | Get a device by ID                |
 | PUT    | `/devices/{id}`                                      | Fully or Partially update a device|
 | DELETE | `/devices/{id}`                                      | Delete a device                   |
-| GET    | `/devices/{brand}`                                   | Get devices by brand              |
-| GET    | `/devices/{state}`                                   | Get devices by state              |
+| GET    | `/devices/getDevicesByBrand/{brand}`                 | Get devices by brand              |
+| GET    | `/devices/getDevicesByState{state}`                  | Get devices by state              |
 
 ### License
 
