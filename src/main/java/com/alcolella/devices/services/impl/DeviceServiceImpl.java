@@ -7,7 +7,6 @@ import com.alcolella.devices.exceptions.DeviceNotFoundException;
 import com.alcolella.devices.exceptions.DeviceUpdateException;
 import com.alcolella.devices.repositories.DeviceRepository;
 import com.alcolella.devices.services.DeviceService;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

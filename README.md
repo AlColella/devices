@@ -47,6 +47,14 @@ Base URL: http://localhost:8080/devices
 | GET    | `/devices/getDevicesByBrand/{brand}`                 | Get devices by brand              |
 | GET    | `/devices/getDevicesByState{state}`                  | Get devices by state              |
 
+
+### Future Improvements
+- Implement pagination for device retrieval endpoints
+- Add unit and integration tests
+- Enhance error handling and validation
+- Implement authentication and authorization
+
+
 ### License
 
 This project is licensed under the MIT License.

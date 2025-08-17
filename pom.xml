@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.alcolella</groupId>
 	<artifactId>devices</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0-PRD</version>
 	<name>devices-api</name>
 	<description>Manager of device resources</description>
 	<url/>
@@ -107,6 +107,14 @@
 							<version>1.6.3</version>
 						</path>
 					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.alcolella.devices.DevicesApiApplication</mainClass>
+					<layout>JAR</layout>
 				</configuration>
 			</plugin>
 		</plugins>
