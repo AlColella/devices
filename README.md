@@ -28,7 +28,7 @@ A RESTful API built with Java 21 and Spring Boot 3 to manage device resources.
 - Spring Boot 3.x
 - Spring Data JPA
 - MapStruct
-- MySQL
+- Postgres
 - Docker & Docker Compose
 - SpringDoc OpenAPI (Swagger UI)
 - Lombok
